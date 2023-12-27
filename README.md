@@ -4,8 +4,7 @@ All VTU programs for III-Sem OS
 
 1. Implement the process system calls fork (), exec () and wait ()
 
-2. a) Implement FCFS (First Come First Serve) scheduling algorithm
-   b) Implement SJF (Shortest Job First) scheduling algorithm.
+2. a) Implement FCFS (First Come First Serve) scheduling algorithm b) Implement SJF (Shortest Job First) scheduling algorithm.
 
 3. Implement Priority Scheduling algorithm.
 

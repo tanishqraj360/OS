@@ -1,3 +1,5 @@
+/*Implement SJF (Shortest Job First) scheduling algorithm*/
+
 #include <stdio.h>
 int main()
 {

@@ -1,3 +1,5 @@
+/*Implement FCFS (First Come First Serve) scheduling algorithm*/
+
 #include <stdio.h>
 int main()
 {

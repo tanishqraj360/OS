@@ -1,3 +1,5 @@
+/*Implement Priority Scheduling algorithm*/
+
 #include <stdio.h>
 #define MAX_PROCESSES 10
 

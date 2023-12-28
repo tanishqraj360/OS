@@ -23,15 +23,11 @@ int main()
         wt[i] = bt[i - 1] + wt[i - 1];
     }
 
-    printf("%-10s %-10s %-10s %-10s\n", "Process ID", "Burst Time", "Waiting Time", "Turnaround Time");
+    printf("%-20s %-20s %-20s %-20s\n", "Process ID", "Burst Time", "Waiting Time", "Turnaround Time");
     float twt = 0, tat = 0;
     for (int i = 0; i < n; i++)
     {
-        printf("%-12d", pid[i]);
-        printf("%-11d", bt[i]);
-        printf("%-13d", wt[i]);
-        printf("%-10d", bt[i] + wt[i]);
-        printf("\n");
+        printf("%-20d %-20d %-20d %-20d\n", pid[i], bt[i], wt[i], bt[i] + wt[i]);
         twt += wt[i];
         tat += (wt[i] + bt[i]);
     }

@@ -36,12 +36,12 @@ int main()
         total += wt[i];
     }
     avg_wt = (float)total / n;
-    printf("\n%-10s %-10s %-10s %-10s", "Process ID", "Brust Time", "Waiting Time", "Turnaround Time");
+    printf("\n%-20s %-20s %-20s %-20s\n", "Process ID", "Brust Time", "Waiting Time", "Turnaround Time");
     for (i = 0; i < n; i++)
     {
         tat[i] = bt[i] + wt[i];
         totalT += tat[i];
-        printf("\nP[%d] %-8s %-10d %-10d %-10d", p[i], "", bt[i], wt[i], tat[i]);
+        printf("%-20d %-20d %-20d %-20d\n", p[i], bt[i], wt[i], tat[i]);
     }
     avg_tat = (float)totalT / n;
     printf("\nAverage Waiting Time: %.2f", avg_wt);

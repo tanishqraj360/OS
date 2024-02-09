@@ -1,72 +1,81 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
-void worstFit(int blockSize[], int m, int processSize[], int n)
+struct p
 {
+    int acum[100];
+    int jp[100];
 
-    int allocation[n];
+} st;
 
-    memset(allocation, -1, sizeof(allocation));
-
-    for (int i = 0; i < n; i++)
-    {
-
-        int wstIdx = -1;
-        for (int j = 0; j < m; j++)
-        {
-            if (blockSize[j] >= processSize[i])
-            {
-                if (wstIdx == -1)
-                    wstIdx = j;
-                else if (blockSize[wstIdx] < blockSize[j])
-                    wstIdx = j;
-            }
-        }
-
-        if (wstIdx != -1)
-        {
-
-            allocation[i] = wstIdx;
-
-            blockSize[wstIdx] -= processSize[i];
-        }
-    }
-
-    printf("\nProcess No.\tProcess Size\tBlock no.\n");
-    for (int i = 0; i < n; i++)
-    {
-        printf(" %d\t\t%d\t\t", i + 1, processSize[i]);
-        if (allocation[i] != -1)
-            printf("%d", allocation[i] + 1);
-        else
-            printf("Not Allocated");
-        printf("\n");
-    }
-}
-
-// Driver code
 int main()
 {
-    int n, m;
-    printf("Enter Number of Process and Memory: ");
+    int n, m, i, count = 0, j, pn[100], internalFragmentation = 0;
+    int p[100], size[100];
+    bool flag[100];
+    printf("ENTER THE NO PROCESS AND MEMORY:\n");
     scanf("%d %d", &n, &m);
-    int blockSize[m];
-    int processSize[n];
+    printf("ENTER THE SIZE OF PROCESS \n");
+    for (i = 0; i < n; i++)
+        scanf("%d", &p[i]);
 
-    printf("Enter Size of Process: ");
-    for (int i = 0; i < n; i++)
+    printf("ENTER THE SIZE OF MEMORY PARTITION \n");
+    for (i = 0; i < m; i++)
     {
-        scanf("%d", &processSize[i]);
+        scanf("%d", &size[i]);
+        flag[i] = 0;
     }
 
-    printf("Enter size of Memory Partition: ");
-    for (int i = 0; i < m; i++)
+    for (i = 0; i < n; i++)
     {
-        scanf("%d", &blockSize[i]);
+        int ic = 0, in = 0;
+        for (j = 0; j < m; j++)
+        {
+            if (p[i] <= size[j] && flag[j] == 0)
+            {
+                int k;
+                st.acum[in] = size[j];
+                st.jp[in] = j;
+                in++;
+                ic++;
+                for (k = ic - 1; k > 0; k--)
+                {
+                    if (st.acum[k] >= st.acum[k - 1])
+                    {
+                        int temp = st.acum[k];
+                        st.acum[k] = st.acum[k - 1];
+                        st.acum[k - 1] = temp;
+                        temp = st.jp[k];
+                        st.jp[k] = st.jp[k - 1];
+                        st.jp[k - 1] = temp;
+                    }
+                }
+            }
+        }
+        if (ic > 0)
+        {
+            j = st.jp[0];
+            flag[j] = true;
+            pn[j] = i;
+            count++;
+            internalFragmentation += (size[j] - p[i]);
+        }
     }
 
-    int a = sizeof(blockSize) / sizeof(blockSize[0]);
-    int b = sizeof(processSize) / sizeof(processSize[0]);
+    printf("NO OF PROCESS CAN ACCOMMODATE:%d\n\n", count);
+    printf("MEMORY\tPROCESS\tINTERNAL FRAGMENTATION\n");
+    for (i = 0; i < m; i++)
+    {
+        if (flag[i] == 1)
+        {
+            printf("%d\t  %d\t    %d\n", size[i], p[pn[i]], size[i] - p[pn[i]]);
+        }
+        else
+            printf("%d\tMEMORY NOT ALLOCATED\n", size[i]);
+    }
 
-    worstFit(blockSize, m, processSize, n);
+    printf("Total Internal Fragmentation: %d\n", internalFragmentation);
+
+    return 0;
 }

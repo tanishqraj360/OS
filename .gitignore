@@ -4,6 +4,8 @@
 /OS_3
 /OS_4
 /OS_5
-/OS_6
+/OS_6_first_fit
+/OS_6_best_fit
+/OS_6_worst_fit
 /test
 /test.c
